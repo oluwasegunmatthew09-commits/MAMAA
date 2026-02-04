@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Love Letter 💖</title>
 
 <style>
@@ -13,7 +13,7 @@
   --red:#ff4d6d;
 }
 
-*{ box-sizing:border-box; font-family:'Comic Sans MS','Poppins',cursive; margin:0; padding:0;}
+*{ box-sizing:border-box; font-family:'Comic Sans MS','Poppins',cursive; margin:0; padding:0; }
 
 body{
   height:100vh;
@@ -54,6 +54,7 @@ body{
 .sticker{
   position:absolute;
   font-size:26px;
+  cursor:pointer;
   animation:wiggle 3s ease-in-out infinite;
 }
 @keyframes wiggle{
@@ -70,9 +71,7 @@ body{
   height:100%;
   text-align:center;
 }
-.lock h1{
-  color:var(--hotpink);
-}
+.lock h1{ color:var(--hotpink); }
 .lock input{
   padding:10px;
   border-radius:20px;
@@ -104,9 +103,7 @@ body{
   transition:transform 1s ease;
   position:absolute;
 }
-.envelope.open{
-  transform:rotateX(-180deg);
-}
+.envelope.open{ transform:rotateX(-180deg); }
 
 /* Letter */
 .letter{
@@ -135,17 +132,30 @@ body{
   animation:glow 1.5s ease-in-out infinite alternate;
 }
 @keyframes glow{
-  0%{text-shadow: 0 0 5px #ff4d6d,0 0 10px #ff85a2,0 0 15px #ff4d6d;}
+  0%{text-shadow:0 0 5px #ff4d6d,0 0 10px #ff85a2,0 0 15px #ff4d6d;}
   100%{text-shadow:0 0 10px #ff4d6d,0 0 20px #ff85a2,0 0 30px #ff4d6d;}
+}
+
+/* Confetti */
+.confetti{
+  position:fixed;
+  width:10px;
+  height:10px;
+  background:var(--red);
+  top:0;
+  animation:fall linear forwards;
+}
+@keyframes fall{
+  0%{transform:translateY(0) rotate(0deg);}
+  100%{transform:translateY(700px) rotate(360deg); opacity:0;}
 }
 </style>
 </head>
-
 <body>
 
 <!-- Background Music -->
 <audio id="music" loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+  <source src="https://assets.mixkit.co/music/preview/mixkit-romantic-soft-piano-499.mp3" type="audio/mpeg">
 </audio>
 
 <div class="phone">
@@ -205,9 +215,7 @@ function unlock(){
       letter.style.display="block";
       typeText();
     },1000);
-  } else {
-    alert("Wrong password 💔");
-  }
+  } else { alert("Wrong password 💔"); }
 }
 
 /* Typing effect */
@@ -216,6 +224,9 @@ function typeText(){
     document.getElementById("text").innerHTML += letterText.charAt(i);
     i++;
     setTimeout(typeText, 25);
+  } else {
+    // Confetti after typing finishes
+    launchConfetti();
   }
 }
 
@@ -230,7 +241,38 @@ function createHeart(){
   setTimeout(()=>heart.remove(),8000);
 }
 setInterval(createHeart,400);
-</script>
 
+/* Interactive stickers */
+document.querySelectorAll(".sticker").forEach(sticker=>{
+  sticker.addEventListener("click",()=>{
+    for(let j=0;j<10;j++){
+      const burst = document.createElement("div");
+      burst.className="heart";
+      burst.innerHTML = ["💖","💗","💕","❤️","💘"][Math.floor(Math.random()*5)];
+      burst.style.left = (sticker.offsetLeft + Math.random()*30)+"px";
+      burst.style.top = (sticker.offsetTop + Math.random()*30)+"px";
+      burst.style.fontSize = 15+Math.random()*15+"px";
+      burst.style.animationDuration = 1 + Math.random()*1 +"s";
+      document.body.appendChild(burst);
+      setTimeout(()=>burst.remove(),2000);
+    }
+  });
+});
+
+/* Confetti */
+function launchConfetti(){
+  for(let k=0;k<100;k++){
+    const conf = document.createElement("div");
+    conf.className="confetti";
+    conf.style.left=Math.random()*360+"px";
+    conf.style.background=['#ff5fa2','#ff85a2','#ffd6e8','#ff4d6d'][Math.floor(Math.random()*4)];
+    conf.style.width=5+Math.random()*8+"px";
+    conf.style.height=5+Math.random()*8+"px";
+    conf.style.animationDuration=2+Math.random()*2+"s";
+    document.body.appendChild(conf);
+    setTimeout(()=>conf.remove(),4000);
+  }
+}
+</script>
 </body>
 </html>
