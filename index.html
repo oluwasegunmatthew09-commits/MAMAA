@@ -6,6 +6,8 @@
 <title>Love Letter 💖</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap');
+
 :root{
   --pink:#ffd6e8;
   --hotpink:#ff5fa2;
@@ -13,7 +15,7 @@
   --red:#ff4d6d;
 }
 
-*{ box-sizing:border-box; font-family:'Comic Sans MS','Poppins',cursive; margin:0; padding:0; }
+*{ box-sizing:border-box; font-family:'Goudy Bookletter 1911', serif; margin:0; padding:0; }
 
 body{
   height:100vh;
@@ -111,24 +113,33 @@ body{
   height:100%;
   overflow-y:auto;
   background:linear-gradient(#fff,#fff5fa);
-  padding:15px;
+  padding:20px;
   border-radius:20px;
+  transform:scaleY(0.95);
+  animation:foldOpen 0.8s forwards;
 }
+@keyframes foldOpen{
+  0%{transform:scaleY(0.95);}
+  50%{transform:scaleY(1.02);}
+  100%{transform:scaleY(1);}
+}
+
 .letter h2{
   text-align:center;
   color:var(--hotpink);
 }
 .letter p{
   white-space:pre-wrap;
-  font-size:15px;
-  line-height:1.6;
+  font-size:16px;
+  line-height:1.7;
   color:#444;
 }
+
 /* glowing name */
 .glow{
   color:var(--red);
   font-weight:bold;
-  text-shadow: 0 0 5px #ff4d6d, 0 0 10px #ff85a2, 0 0 15px #ff4d6d;
+  text-shadow:0 0 5px #ff4d6d,0 0 10px #ff85a2,0 0 15px #ff4d6d;
   animation:glow 1.5s ease-in-out infinite alternate;
 }
 @keyframes glow{
@@ -153,8 +164,8 @@ body{
 </head>
 <body>
 
-<!-- Background Music -->
-<audio id="music" loop>
+<!-- Background Music (Muted autoplay trick) -->
+<audio id="music" loop autoplay muted>
   <source src="https://assets.mixkit.co/music/preview/mixkit-romantic-soft-piano-499.mp3" type="audio/mpeg">
 </audio>
 
@@ -208,7 +219,9 @@ function unlock(){
     document.getElementById("lock").style.display="none";
     const env = document.getElementById("envelope");
     env.classList.add("open");
-    document.getElementById("music").play();
+    const music = document.getElementById("music");
+    music.muted = false; // unmute for mobile autoplay trick
+    music.play();
     setTimeout(()=>{
       env.style.display="none";
       const letter = document.getElementById("letter");
@@ -225,7 +238,6 @@ function typeText(){
     i++;
     setTimeout(typeText, 25);
   } else {
-    // Confetti after typing finishes
     launchConfetti();
   }
 }
