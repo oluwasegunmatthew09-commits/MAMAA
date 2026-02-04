@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Love Letter 💖</title>
+
+<style>
+:root{
+  --pink:#ffd6e8;
+  --hotpink:#ff5fa2;
+  --paper:#fffafc;
+  --red:#ff4d6d;
+}
+
+*{ box-sizing:border-box; font-family:'Comic Sans MS','Poppins',cursive; margin:0; padding:0;}
+
+body{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#ffc1dd,#ffddee);
+  overflow:hidden;
+}
+
+/* Floating hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation:floatUp linear infinite;
+  opacity:.7;
+}
+@keyframes floatUp{
+  0%{transform:translateY(0);opacity:0}
+  20%{opacity:1}
+  100%{transform:translateY(-120vh);opacity:0}
+}
+
+/* Phone container */
+.phone{
+  width:360px;
+  height:640px;
+  background:var(--paper);
+  border-radius:30px;
+  box-shadow:0 20px 40px rgba(0,0,0,.2);
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+}
+
+/* Stickers */
+.sticker{
+  position:absolute;
+  font-size:26px;
+  animation:wiggle 3s ease-in-out infinite;
+}
+@keyframes wiggle{
+  0%,100%{transform:rotate(-5deg)}
+  50%{transform:rotate(5deg)}
+}
+
+/* Password screen */
+.lock{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  height:100%;
+  text-align:center;
+}
+.lock h1{
+  color:var(--hotpink);
+}
+.lock input{
+  padding:10px;
+  border-radius:20px;
+  border:2px solid var(--hotpink);
+  text-align:center;
+  font-size:16px;
+}
+.lock button{
+  margin-top:12px;
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:var(--hotpink);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+
+/* Envelope animation */
+.envelope{
+  width:100%;
+  height:100%;
+  background:linear-gradient(135deg,#fff0f5,#ffe4f1);
+  border-radius:20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  transform-origin:top center;
+  transition:transform 1s ease;
+  position:absolute;
+}
+.envelope.open{
+  transform:rotateX(-180deg);
+}
+
+/* Letter */
+.letter{
+  display:none;
+  height:100%;
+  overflow-y:auto;
+  background:linear-gradient(#fff,#fff5fa);
+  padding:15px;
+  border-radius:20px;
+}
+.letter h2{
+  text-align:center;
+  color:var(--hotpink);
+}
+.letter p{
+  white-space:pre-wrap;
+  font-size:15px;
+  line-height:1.6;
+  color:#444;
+}
+/* glowing name */
+.glow{
+  color:var(--red);
+  font-weight:bold;
+  text-shadow: 0 0 5px #ff4d6d, 0 0 10px #ff85a2, 0 0 15px #ff4d6d;
+  animation:glow 1.5s ease-in-out infinite alternate;
+}
+@keyframes glow{
+  0%{text-shadow: 0 0 5px #ff4d6d,0 0 10px #ff85a2,0 0 15px #ff4d6d;}
+  100%{text-shadow:0 0 10px #ff4d6d,0 0 20px #ff85a2,0 0 30px #ff4d6d;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Music -->
+<audio id="music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div class="phone">
+
+  <!-- Stickers -->
+  <div class="sticker" style="top:10px;left:10px;">💌</div>
+  <div class="sticker" style="top:50px;right:15px;">🌸</div>
+  <div class="sticker" style="bottom:60px;left:20px;">💖</div>
+  <div class="sticker" style="bottom:20px;right:25px;">🥰</div>
+
+  <!-- Password Screen -->
+  <div class="lock" id="lock">
+    <h1>Love Letter 💕</h1>
+    <p>From Me to You</p>
+    <input type="password" id="password" placeholder="Enter password 💗"/>
+    <button onclick="unlock()">Open Letter 💌</button>
+  </div>
+
+  <!-- Envelope -->
+  <div class="envelope" id="envelope">
+    <h2>💌 Your Letter 💌</h2>
+  </div>
+
+  <!-- Letter -->
+  <div class="letter" id="letter">
+    <h2>Hey <span class="glow">Aminatta</span> ❤️</h2>
+    <p id="text"></p>
+  </div>
+
+</div>
+
+<script>
+/* PASSWORD */
+const correctPassword = "iloveyou";
+
+/* LETTER TEXT */
+const letterText = `I just want to take a moment to tell you how much I truly love you 💖. Every single day, I thank God 🙏 for bringing you into my life and for letting me experience your love, your care, and your endless wisdom. You are more than just my mother—you are my guide, my friend, and my safe haven 🌹. I honestly don’t think I could ever put into words how grateful I am for everything you’ve done and continue to do for me.
+
+Thank you, Mama, for always being there—through the laughter, through the tears, through every challenge and every joy 🥰. I know I might be so annoying sometimes 😅, but you are always there for me, patiently guiding me, correcting me, and loving me like only a mother can. Your patience and understanding never go unnoticed 💕. Your smile brightens even my darkest days 🌞, and your hugs are the safest place in the world 🤗. I notice every little thing you do, even the things you think go unnoticed, and I treasure them all 💖.
+
+You are my heart, my peace, and my happiness ❤️. Your strength inspires me, your kindness humbles me, and your love completes me. I pray that God continues to bless you abundantly—with health, joy, laughter, and love that knows no bounds 🙏✨. You deserve everything beautiful in this world, Mama, and I hope I can always make you feel as special, as cherished, and as loved as you make me feel every single day 💌.
+
+I love you more than words can ever express, Aminatta 😘❤️. Thank you for being you, for loving me, for putting up with all my silly moments, and for showing me what it truly means to care for someone with your whole heart. You are my forever blessing, and I will always honor, respect, and cherish you in every way possible 🌹💖.`;
+
+/* Unlock letter */
+let i=0;
+function unlock(){
+  const input = document.getElementById("password").value;
+  if(input === correctPassword){
+    document.getElementById("lock").style.display="none";
+    const env = document.getElementById("envelope");
+    env.classList.add("open");
+    document.getElementById("music").play();
+    setTimeout(()=>{
+      env.style.display="none";
+      const letter = document.getElementById("letter");
+      letter.style.display="block";
+      typeText();
+    },1000);
+  } else {
+    alert("Wrong password 💔");
+  }
+}
+
+/* Typing effect */
+function typeText(){
+  if(i < letterText.length){
+    document.getElementById("text").innerHTML += letterText.charAt(i);
+    i++;
+    setTimeout(typeText, 25);
+  }
+}
+
+/* Floating hearts */
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML = ["💖","💗","💕","❤️","💘"][Math.floor(Math.random()*5)];
+  heart.style.left = Math.random()*100+"vw";
+  heart.style.animationDuration = (4+Math.random()*4)+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),8000);
+}
+setInterval(createHeart,400);
+</script>
+
+</body>
+</html>
